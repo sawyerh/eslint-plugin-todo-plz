@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-todo-plz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Enforce consistent and maintainable TODO comments",
   "license": "MIT",
   "keywords": [
@@ -10,7 +10,11 @@
     "linter",
     "lint"
   ],
-  "author": "Sawyer Hollenshead",
+  "author": {
+    "name": "Sawyer Hollenshead",
+    "url": "https://github.com/sawyerh"
+  },
+  "repository": "sawyerh/eslint-plugin-todo-plz",
   "main": "lib/index.js",
   "files": [
     "lib"
