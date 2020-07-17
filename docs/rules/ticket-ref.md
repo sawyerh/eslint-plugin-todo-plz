@@ -2,7 +2,7 @@
 
 Adding a `TODO` comment that will be addressed in the future should have a corresponding ticket (AKA issue) in the project backlog so the team doesn't lose track of the pending work.
 
-## Fail
+## Fail 🛑
 
 Examples of **incorrect** code for this rule:
 
@@ -10,12 +10,18 @@ Examples of **incorrect** code for this rule:
 // TODO: Unmock this API request
 ```
 
-## Pass
+## Pass ✅
 
 Examples of **correct** code for this rule:
 
 ```js
 // TODO (PROJ-123): Unmock this API request
+```
+
+```js
+/**
+ * TODO (PROJ-123, PROJ-456): Unmock this API request
+ */
 ```
 
 ## Options

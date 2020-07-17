@@ -20,6 +20,10 @@ ruleTester.run("ticket-ref", rule, {
       options: [options.jira],
     },
     {
+      code: "// TODO (PROJ-123, PROJ-456): Connect to the API",
+      options: [options.jira],
+    },
+    {
       code: "//TODO (PROJ-123) Connect to the API",
       options: [options.jira],
     },
