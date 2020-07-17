@@ -33,3 +33,18 @@ For example, let's say you're using Jira and your ticket IDs are prefixed with `
   }
 }
 ```
+
+### terms
+
+Optional. Change what terms to require the ticket reference on. Defaults to: `["TODO", "FIXME"]`
+
+```json
+{
+  "rules": {
+    "todo-plz/ticket-ref": [
+      "error",
+      { "pattern": "ABC-[0-9]+", "terms": ["NEXT", "TODO", "@todo"] }
+    ]
+  }
+}
+```

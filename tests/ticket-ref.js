@@ -3,8 +3,10 @@ const rule = require("../lib/rules/ticket-ref");
 const ruleTester = new RuleTester();
 
 const messages = {
-  missingTicket:
-    "TODO comment is missing a ticket reference matching pattern: ABC-[0-9]+",
+  missingTodoTicket:
+    "TODO comment doesn't reference a ticket number. Ticket pattern: ABC-[0-9]+",
+  missingFixmeTicket:
+    "FIXME comment doesn't reference a ticket number. Ticket pattern: ABC-[0-9]+",
 };
 
 const options = {
@@ -52,6 +54,14 @@ ruleTester.run("ticket-ref", rule, {
               */`,
       options: [options.jira],
     },
+    {
+      code: "// TODO: Connect to the API",
+      options: [{ pattern: "ABC-[0-9]+", terms: ["FIXME"] }],
+    },
+    {
+      code: "// FIXME (ABC-2): Connect to the API",
+      options: [{ pattern: "ABC-[0-9]+", terms: ["FIXME"] }],
+    },
   ],
 
   invalid: [
@@ -59,7 +69,7 @@ ruleTester.run("ticket-ref", rule, {
       code: "// TODO: Connect to the API",
       errors: [
         {
-          message: messages.missingTicket,
+          message: messages.missingTodoTicket,
         },
       ],
       options: [options.jira],
@@ -68,7 +78,7 @@ ruleTester.run("ticket-ref", rule, {
       code: "// TODO (a-1): Connect to the API",
       errors: [
         {
-          message: messages.missingTicket,
+          message: messages.missingTodoTicket,
         },
       ],
       options: [options.jira],
@@ -81,10 +91,15 @@ ruleTester.run("ticket-ref", rule, {
               */`,
       errors: [
         {
-          message: messages.missingTicket,
+          message: messages.missingTodoTicket,
         },
       ],
       options: [options.jira],
+    },
+    {
+      code: "// FIXME: Connect to the API",
+      errors: [{ message: messages.missingFixmeTicket }],
+      options: [{ pattern: "ABC-[0-9]+", terms: ["FIXME"] }],
     },
   ],
 });
