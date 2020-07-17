@@ -4,35 +4,35 @@ const ruleTester = new RuleTester();
 
 const messages = {
   missingTodoTicket:
-    "TODO comment doesn't reference a ticket number. Ticket pattern: ABC-[0-9]+",
+    "TODO comment doesn't reference a ticket number. Ticket pattern: PROJ-[0-9]+",
   missingFixmeTicket:
-    "FIXME comment doesn't reference a ticket number. Ticket pattern: ABC-[0-9]+",
+    "FIXME comment doesn't reference a ticket number. Ticket pattern: PROJ-[0-9]+",
 };
 
 const options = {
-  jira: { pattern: "ABC-[0-9]+" },
+  jira: { pattern: "PROJ-[0-9]+" },
 };
 
 ruleTester.run("ticket-ref", rule, {
   valid: [
     {
-      code: "// TODO (ABC-123): Connect to the API",
+      code: "// TODO (PROJ-123): Connect to the API",
       options: [options.jira],
     },
     {
-      code: "//TODO (ABC-123) Connect to the API",
+      code: "//TODO (PROJ-123) Connect to the API",
       options: [options.jira],
     },
     {
-      code: "// TODO(ABC-123): Connect to the API",
+      code: "// TODO(PROJ-123): Connect to the API",
       options: [options.jira],
     },
     {
-      code: "/* TODO(ABC-123): Connect to the API */",
+      code: "/* TODO(PROJ-123): Connect to the API */",
       options: [options.jira],
     },
     {
-      code: "// todo (abc-123): Connect to the API",
+      code: "// todo (PROJ-123): Connect to the API",
       options: [options.jira],
     },
     {
@@ -42,7 +42,7 @@ ruleTester.run("ticket-ref", rule, {
     {
       code: `/**
               * Description
-              * TODO (ABC-123): Connect to the API
+              * TODO (PROJ-123): Connect to the API
               * @returns {string}
               */`,
       options: [options.jira],
@@ -56,11 +56,11 @@ ruleTester.run("ticket-ref", rule, {
     },
     {
       code: "// TODO: Connect to the API",
-      options: [{ pattern: "ABC-[0-9]+", terms: ["FIXME"] }],
+      options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
     },
     {
-      code: "// FIXME (ABC-2): Connect to the API",
-      options: [{ pattern: "ABC-[0-9]+", terms: ["FIXME"] }],
+      code: "// FIXME (PROJ-2): Connect to the API",
+      options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
     },
   ],
 
@@ -99,7 +99,7 @@ ruleTester.run("ticket-ref", rule, {
     {
       code: "// FIXME: Connect to the API",
       errors: [{ message: messages.missingFixmeTicket }],
-      options: [{ pattern: "ABC-[0-9]+", terms: ["FIXME"] }],
+      options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
     },
   ],
 });

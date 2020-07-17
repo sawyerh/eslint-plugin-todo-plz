@@ -31,7 +31,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "todo-plz/ticket-ref": ["error", { "pattern": "ABC-[0-9]+" }]
+    "todo-plz/ticket-ref": ["error", { "pattern": "PROJ-[0-9]+" }]
   }
 }
 ```

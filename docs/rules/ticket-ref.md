@@ -15,7 +15,7 @@ Examples of **incorrect** code for this rule:
 Examples of **correct** code for this rule:
 
 ```js
-// TODO (ABC-123): Unmock this API request
+// TODO (PROJ-123): Unmock this API request
 ```
 
 ## Options
@@ -24,12 +24,12 @@ Examples of **correct** code for this rule:
 
 This option controls what the ticket pattern is to match against. Expects a regex string.
 
-For example, let's say you're using Jira and your ticket IDs are prefixed with `ABC` followed by a number (e.g `ABC-123`), you would configure this rule like:
+For example, let's say you're using Jira and your ticket IDs are prefixed with `PROJ` followed by a number (e.g `PROJ-123`), you would configure this rule like:
 
 ```json
 {
   "rules": {
-    "todo-plz/ticket-ref": ["error", { "pattern": "ABC-[0-9]+" }]
+    "todo-plz/ticket-ref": ["error", { "pattern": "PROJ-[0-9]+" }]
   }
 }
 ```
@@ -43,7 +43,7 @@ Optional. Change what terms to require the ticket reference on. Defaults to: `["
   "rules": {
     "todo-plz/ticket-ref": [
       "error",
-      { "pattern": "ABC-[0-9]+", "terms": ["FIXME", "TODO"] }
+      { "pattern": "PROJ-[0-9]+", "terms": ["FIXME", "TODO"] }
     ]
   }
 }

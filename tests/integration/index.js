@@ -1,4 +1,4 @@
-// TODO (ABC-1): Good
+// TODO (PROJ-1): Good
 console.log("[Rule] ticket-ref: This is fine.");
 
 // TODO: Bad
