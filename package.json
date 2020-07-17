@@ -12,6 +12,9 @@
   ],
   "author": "Sawyer Hollenshead",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ]
   "scripts": {
     "lint": "cd tests/integration && eslint .",
     "test": "mocha tests"
