@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "eslint-plugin-todo-plz-tester",
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "eslint-plugin-todo-plz": "file:../.."
+  }
+}

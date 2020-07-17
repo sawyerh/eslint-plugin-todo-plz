@@ -1,0 +1,6 @@
+{
+  "plugins": ["todo-plz"],
+  "rules": {
+    "todo-plz/ticket-ref": ["error", { "pattern": "ABC-[0-9]+" }]
+  }
+}

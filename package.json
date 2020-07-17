@@ -1,0 +1,29 @@
+{
+  "name": "eslint-plugin-todo-plz",
+  "version": "1.0.0",
+  "description": "Enforce consistent and maintainable TODO comments",
+  "license": "MIT",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "linter",
+    "lint"
+  ],
+  "author": "Sawyer Hollenshead",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "cd tests/integration && eslint .",
+    "test": "mocha tests"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "mocha": "^8.0.1"
+  },
+  "peerDependencies": {
+    "eslint": ">=7.3.0"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
