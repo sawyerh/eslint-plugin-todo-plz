@@ -1,6 +1,6 @@
 # Require a ticket reference in the TODO comment (ticket-ref)
 
-Adding a `TODO` comment that will be addressed in the future should have a corresponding ticket (AKA issue) in the project backlog so the team doesn't lose track of the pending work.
+Adding a `TODO` comment that will be addressed in the future should have a corresponding ticket (AKA issue) in the project backlog, so the team doesn't lose track of the pending work.
 
 ## Fail 🛑
 
@@ -25,6 +25,20 @@ Examples of **correct** code for this rule:
 ```
 
 ## Options
+
+### commentPattern
+
+This option overrides the overall comment pattern that matches both term and ticket. When used, term and pattern options are ignored. Expects a regex string.
+
+For example, let's say your IDE or tooling expects a different comment pattern such as `TODO: [PROJ-123]`, you would configure this rule like:
+
+```json
+{
+  "rules": {
+    "todo-plz/ticket-ref": ["error", { "commentPattern": "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]" }]
+  }
+}
+```
 
 ### pattern
 
