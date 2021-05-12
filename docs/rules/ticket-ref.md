@@ -28,7 +28,7 @@ Examples of **correct** code for this rule:
 
 ### commentPattern
 
-This option overrides the overall comment pattern that matches both term and ticket. When used, term and pattern options are ignored. Expects a regex string.
+This option overrides the overall comment pattern that matches both term and ticket. When used, `term` and `pattern` options are ignored. Expects a regex string.
 
 For example, let's say your IDE or tooling expects a different comment pattern such as `TODO: [PROJ-123]`, you would configure this rule like:
 
