@@ -5,6 +5,8 @@ const ruleTester = new RuleTester();
 const messages = {
   missingTodoTicket:
     "TODO comment doesn't reference a ticket number. Ticket pattern: PROJ-[0-9]+",
+  missingTodoTicketWithCommentPattern:
+    "TODO comment doesn't reference a ticket number. Comment pattern: TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]",
   missingFixmeTicket:
     "FIXME comment doesn't reference a ticket number. Ticket pattern: PROJ-[0-9]+",
 };
@@ -12,6 +14,8 @@ const messages = {
 const options = {
   jira: { pattern: "PROJ-[0-9]+" },
 };
+
+const commentPattern = "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]"
 
 ruleTester.run("ticket-ref", rule, {
   valid: [
@@ -66,6 +70,18 @@ ruleTester.run("ticket-ref", rule, {
       code: "// FIXME (PROJ-2): Connect to the API",
       options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
     },
+    {
+      code: "// TODO: [PROJ-2] Connect to the API",
+      options: [{ commentPattern }],
+    },
+    {
+      code: `/**
+              * Description
+              * TODO: [PROJ-123] Connect to the API
+              * @returns {string}
+              */`,
+      options: [{ commentPattern }],
+    },
   ],
 
   invalid: [
@@ -104,6 +120,11 @@ ruleTester.run("ticket-ref", rule, {
       code: "// FIXME: Connect to the API",
       errors: [{ message: messages.missingFixmeTicket }],
       options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
+    },
+    {
+      code: "// TODO (PROJ-123) Connect to the API",
+      errors: [{ message: messages.missingTodoTicketWithCommentPattern }],
+      options: [{ commentPattern }],
     },
   ],
 });
