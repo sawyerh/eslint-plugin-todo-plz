@@ -36,6 +36,44 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
+## Examples
+
+### With pattern
+
+Examples of **incorrect** code for this rule:
+```javascript
+/* eslint "todo-plz/ticket-ref": ["error", { "pattern": "PROJ-[0-9]+" }] */
+// TODO: Lorem ipsum
+// TODO: Lorem ipsum. Ticket PROJ-123
+// TODO: OTHERPROJ-123
+// TODO: PROJ-123
+```
+
+Examples of **correct** code for this rule:
+```javascript
+/* eslint "todo-plz/ticket-ref": ["error", { "pattern": "PROJ-[0-9]+" }] */
+// TODO: (PROJ-123) Lorem ipsum
+```
+
+### With commentPattern
+
+Examples of **incorrect** code for this rule:
+```javascript
+/* eslint "todo-plz/ticket-ref": ['error', { "commentPattern": "TODO\\:\\s\\\\[PROJ\\-[0-9]+\]" }] */
+// TODO: Lorem ipsum
+// TODO: Lorem ipsum. Ticket PROJ-123
+// TODO: OTHERPROJ-123
+// TODO: PROJ-123
+
+// TODO: (PROJ-123) Lorem ipsum
+```
+
+Examples of **correct** code for this rule:
+```javascript
+/* eslint "todo-plz/ticket-ref": ['error', { "commentPattern": "TODO\\:\\s\\\\[PROJ\\-[0-9]+\]" }] */
+// TODO: [PROJ-123] Lorem ipsum
+```
+
 ## Supported Rules
 
 - [`ticket-ref`](docs/rules/ticket-ref.md)
