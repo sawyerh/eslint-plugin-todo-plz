@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-todo-plz",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Enforce consistent and maintainable TODO comments",
   "license": "MIT",
   "keywords": [
