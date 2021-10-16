@@ -24,8 +24,8 @@
     "test": "mocha tests"
   },
   "devDependencies": {
-    "eslint": "^7.26.0",
-    "mocha": "^8.4.0"
+    "eslint": "^8.0.1",
+    "mocha": "^9.1.3"
   },
   "peerDependencies": {
     "eslint": ">=7.3.0"
