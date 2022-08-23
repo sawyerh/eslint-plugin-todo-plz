@@ -2,21 +2,22 @@ const RuleTester = require("eslint").RuleTester;
 const rule = require("../lib/rules/ticket-ref");
 const ruleTester = new RuleTester();
 
+const pattern = "PROJ-[0-9]+";
+const commentPattern = "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]";
+const description = "Example: TODO: [http://jira.net/browse/TASK-0000]";
+
 const messages = {
-  missingTodoTicket:
-    "TODO comment doesn't reference a ticket number. Ticket pattern: PROJ-[0-9]+",
-  missingTodoTicketWithCommentPattern:
-    "TODO comment doesn't reference a ticket number. Comment pattern: TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]",
-    missingTicketWithDescription: "TODO comment doesn't reference a ticket number. Example: TODO: [http://jira.net/browse/TASK-0000]",
-  missingFixmeTicket:
-    "FIXME comment doesn't reference a ticket number. Ticket pattern: PROJ-[0-9]+"
+  missingTodoTicket: `TODO comment doesn't reference a ticket number. Ticket pattern: ${pattern}`,
+  missingTodoTicketWithCommentPattern: `TODO comment doesn't reference a ticket number. Comment pattern: ${commentPattern}`,
+  missingTicketWithDescription: `TODO comment doesn't reference a ticket number. ${description}`,
+  missingFixmeTicket: `FIXME comment doesn't reference a ticket number. Ticket pattern: ${pattern}`,
 };
 
 const options = {
-  jira: { pattern: "PROJ-[0-9]+" },
+  jira: {
+    pattern,
+  },
 };
-
-const commentPattern = "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]"
 
 ruleTester.run("ticket-ref", rule, {
   valid: [
@@ -65,11 +66,11 @@ ruleTester.run("ticket-ref", rule, {
     },
     {
       code: "// TODO: Connect to the API",
-      options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
+      options: [{ pattern, terms: ["FIXME"] }],
     },
     {
       code: "// FIXME (PROJ-2): Connect to the API",
-      options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
+      options: [{ pattern, terms: ["FIXME"] }],
     },
     {
       code: "// TODO: [PROJ-2] Connect to the API",
@@ -85,12 +86,7 @@ ruleTester.run("ticket-ref", rule, {
     },
     {
       code: "// TODO (PROJ-2): Connect to the API",
-      options: [
-        {
-          pattern: "PROJ-[0-9]+",
-          description: "Example: TODO: [http://jira.net/browse/TASK-0000]",
-        },
-      ],
+      options: [{ pattern, description }],
     },
     {
       code: `/**
@@ -98,12 +94,7 @@ ruleTester.run("ticket-ref", rule, {
               * TODO (PROJ-123): Connect to the API
               * @returns {string}
               */`,
-      options: [
-        {
-          pattern: "PROJ-[0-9]+",
-          description: "Example: TODO: [http://jira.net/browse/TASK-0000]",
-        },
-      ],
+      options: [{ pattern, description }],
     },
   ],
 
@@ -142,7 +133,7 @@ ruleTester.run("ticket-ref", rule, {
     {
       code: "// FIXME: Connect to the API",
       errors: [{ message: messages.missingFixmeTicket }],
-      options: [{ pattern: "PROJ-[0-9]+", terms: ["FIXME"] }],
+      options: [{ pattern, terms: ["FIXME"] }],
     },
     {
       code: "// TODO (PROJ-123) Connect to the API",
@@ -152,9 +143,7 @@ ruleTester.run("ticket-ref", rule, {
     {
       code: "// TODO (PROJ-123) Connect to the API",
       errors: [{ message: messages.missingTicketWithDescription }],
-      options: [
-        { description: "Example: TODO: [http://jira.net/browse/TASK-0000]" },
-      ],
+      options: [{ description }],
     },
   ],
 });
