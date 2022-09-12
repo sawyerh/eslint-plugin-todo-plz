@@ -2,6 +2,8 @@
 
 Enforce consistent and maintainable TODO comments.
 
+![Screenshot](.github/assets/screenshot.png)
+
 ## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
