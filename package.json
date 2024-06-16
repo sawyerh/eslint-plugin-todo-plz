@@ -14,7 +14,10 @@
     "name": "Sawyer Hollenshead",
     "url": "https://github.com/sawyerh"
   },
-  "repository": "sawyerh/eslint-plugin-todo-plz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sawyerh/eslint-plugin-todo-plz.git"
+  },
   "main": "lib/index.js",
   "files": [
     "lib"
