@@ -6,7 +6,7 @@ Adding a `TODO` comment that will be addressed in the future should have a corre
 
 ### `pattern`
 
-**This option is required**, and controls what the ticket pattern is to match against. Expects a regex string.
+**This option is required**, and controls what the ticket pattern is to match against. Expects a regex string or, in JavaScript config files, a `RegExp` literal.
 
 For example, let's say you're using Jira and your ticket IDs are prefixed with `PROJ` followed by a number (e.g `PROJ-123`), you would configure this rule like:
 
@@ -16,6 +16,16 @@ For example, let's say you're using Jira and your ticket IDs are prefixed with `
     "todo-plz/ticket-ref": ["error", { "pattern": "PROJ-[0-9]+" }]
   }
 }
+```
+
+In a JavaScript config file, you can use a `RegExp` literal instead:
+
+```js
+module.exports = {
+  rules: {
+    "todo-plz/ticket-ref": ["error", { pattern: /PROJ-[0-9]+/u }],
+  },
+};
 ```
 
 Examples of **incorrect** code for this rule when using the above options:
@@ -68,7 +78,7 @@ Examples of **correct** code for this rule when using the above options:
 
 ### `commentPattern`
 
-_Optional._ Override the overall comment pattern that matches both term and ticket. When used, `term` and `pattern` options are ignored. Expects a regex string.
+_Optional._ Override the overall comment pattern that matches both term and ticket. When used, `term` and `pattern` options are ignored. Expects a regex string or, in JavaScript config files, a `RegExp` literal.
 
 For example, let's say you expect a different comment pattern such as `TODO: [PROJ-123]`, you would configure this rule like:
 
@@ -81,6 +91,19 @@ For example, let's say you expect a different comment pattern such as `TODO: [PR
     ]
   }
 }
+```
+
+In a JavaScript config file, you can use a `RegExp` literal instead:
+
+```js
+module.exports = {
+  rules: {
+    "todo-plz/ticket-ref": [
+      "error",
+      { commentPattern: /TODO:\s\[(PROJ-[0-9]+[,\s]*)+\]/u },
+    ],
+  },
+};
 ```
 
 Examples of **incorrect** code for this rule when using the above options:

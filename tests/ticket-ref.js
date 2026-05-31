@@ -4,7 +4,9 @@ const rule = require("../lib/rules/ticket-ref");
 const ruleTester = new RuleTester();
 
 const pattern = "PROJ-[0-9]+";
+const patternRegex = /PROJ-[0-9]+/u;
 const commentPattern = "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]";
+const commentPatternRegex = /TODO:\s\[(PROJ-[0-9]+[,\s]*)+\]/u;
 const description = "Example: TODO: [http://jira.net/browse/TASK-0000]";
 
 const messages = {
@@ -25,6 +27,10 @@ ruleTester.run("ticket-ref", rule, {
     {
       code: "// TODO (PROJ-123): Connect to the API",
       options: [options.jira],
+    },
+    {
+      code: "// TODO (PROJ-123): Connect to the API",
+      options: [{ pattern: patternRegex }],
     },
     {
       code: "// TODO (PROJ-123, PROJ-456): Connect to the API",
@@ -78,6 +84,10 @@ ruleTester.run("ticket-ref", rule, {
       options: [{ commentPattern }],
     },
     {
+      code: "// TODO: [PROJ-2] Connect to the API",
+      options: [{ commentPattern: commentPatternRegex }],
+    },
+    {
       code: `/**
               * Description
               * TODO: [PROJ-123] Connect to the API
@@ -119,6 +129,15 @@ ruleTester.run("ticket-ref", rule, {
       options: [options.jira],
     },
     {
+      code: "// TODO (a-1): Connect to the API",
+      errors: [
+        {
+          message: `TODO comment doesn't reference a ticket number. Ticket pattern: ${patternRegex}`,
+        },
+      ],
+      options: [{ pattern: patternRegex }],
+    },
+    {
       code: `/**
               * Description
               * TODO: Connect to the API
@@ -140,6 +159,15 @@ ruleTester.run("ticket-ref", rule, {
       code: "// TODO (PROJ-123) Connect to the API",
       errors: [{ message: messages.missingTodoTicketWithCommentPattern }],
       options: [{ commentPattern }],
+    },
+    {
+      code: "// TODO (PROJ-123) Connect to the API",
+      errors: [
+        {
+          message: `TODO comment doesn't reference a ticket number. Comment pattern: ${commentPatternRegex}`,
+        },
+      ],
+      options: [{ commentPattern: commentPatternRegex }],
     },
     {
       code: "// TODO (PROJ-123) Connect to the API",
