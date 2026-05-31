@@ -1,3 +1,4 @@
+const assert = require("assert");
 const RuleTester = require("eslint").RuleTester;
 const rule = require("../lib/rules/ticket-ref");
 const ruleTester = new RuleTester();
@@ -146,4 +147,42 @@ ruleTester.run("ticket-ref", rule, {
       options: [{ description }],
     },
   ],
+});
+
+describe("ticket-ref source code compatibility", () => {
+  const sourceCode = {
+    getAllComments() {
+      return [{ loc: { line: 1, column: 0 }, value: "TODO: Connect to the API" }];
+    },
+  };
+
+  function createContext(overrides) {
+    return {
+      options: [options.jira],
+      report() {},
+      ...overrides,
+    };
+  }
+
+  it("uses context.sourceCode when available", () => {
+    assert.doesNotThrow(() => {
+      rule.create(
+        createContext({
+          sourceCode,
+        })
+      );
+    });
+  });
+
+  it("falls back to context.getSourceCode for older ESLint versions", () => {
+    assert.doesNotThrow(() => {
+      rule.create(
+        createContext({
+          getSourceCode() {
+            return sourceCode;
+          },
+        })
+      );
+    });
+  });
 });
