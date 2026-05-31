@@ -23,7 +23,7 @@ In a JavaScript config file, you can use a `RegExp` literal instead:
 ```js
 module.exports = {
   rules: {
-    "todo-plz/ticket-ref": ["error", { pattern: /PROJ-[0-9]+/u }],
+    "todo-plz/ticket-ref": ["error", { pattern: /PROJ-[0-9]+/i }],
   },
 };
 ```
@@ -100,7 +100,7 @@ module.exports = {
   rules: {
     "todo-plz/ticket-ref": [
       "error",
-      { commentPattern: /TODO:\s\[(PROJ-[0-9]+[,\s]*)+\]/u },
+      { commentPattern: /TODO:\s\[(PROJ-[0-9]+[,\s]*)+\]/i },
     ],
   },
 };

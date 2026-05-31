@@ -4,9 +4,9 @@ const rule = require("../lib/rules/ticket-ref");
 const ruleTester = new RuleTester();
 
 const pattern = "PROJ-[0-9]+";
-const patternRegex = /PROJ-[0-9]+/u;
+const patternRegex = /PROJ-[0-9]+/iu;
 const commentPattern = "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]";
-const commentPatternRegex = /TODO:\s\[(PROJ-[0-9]+[,\s]*)+\]/u;
+const commentPatternRegex = /TODO:\s\[(PROJ-[0-9]+[,\s]*)+\]/iu;
 const description = "Example: TODO: [http://jira.net/browse/TASK-0000]";
 
 const messages = {
