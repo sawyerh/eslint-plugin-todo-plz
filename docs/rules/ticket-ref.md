@@ -68,7 +68,7 @@ Examples of **correct** code for this rule when using the above options:
 
 ### `commentPattern`
 
-_Optional._ Override the overall comment pattern that matches both term and ticket. When used, `term` and `pattern` options are ignored. Expects a regex string.
+_Optional._ Override the overall comment pattern that matches both term and ticket. When used, the `pattern` option is ignored. Expects a regex string.
 
 For example, let's say you expect a different comment pattern such as `TODO: [PROJ-123]`, you would configure this rule like:
 
