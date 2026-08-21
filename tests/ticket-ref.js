@@ -1,4 +1,5 @@
 const assert = require("assert");
+const Linter = require("eslint").Linter;
 const RuleTester = require("eslint").RuleTester;
 const rule = require("../lib/rules/ticket-ref");
 const ruleTester = new RuleTester();
@@ -142,9 +143,9 @@ ruleTester.run("ticket-ref", rule, {
       options: [{ commentPattern }],
     },
     {
-      code: "// TODO (PROJ-123) Connect to the API",
+      code: "// TODO (TASK-123) Connect to the API",
       errors: [{ message: messages.missingTicketWithDescription }],
-      options: [{ description }],
+      options: [{ pattern, description }],
     },
   ],
 });
@@ -184,5 +185,46 @@ describe("ticket-ref source code compatibility", () => {
         })
       );
     });
+  });
+});
+
+describe("ticket-ref option schema", () => {
+  function verifyWithOptions(ruleOptions) {
+    const linter = new Linter();
+
+    return linter.verify("// TODO: Connect to the API", [
+      {
+        plugins: {
+          "todo-plz": {
+            rules: { "ticket-ref": rule },
+          },
+        },
+        rules: {
+          "todo-plz/ticket-ref": ["error", ruleOptions],
+        },
+      },
+    ]);
+  }
+
+  it("requires a ticket pattern or an overall comment pattern", () => {
+    assert.throws(() => verifyWithOptions({}), /should have required property/);
+  });
+
+  it("rejects empty and duplicate term lists", () => {
+    assert.throws(
+      () => verifyWithOptions({ pattern, terms: [] }),
+      /should NOT have fewer than 1 items/,
+    );
+    assert.throws(
+      () => verifyWithOptions({ pattern, terms: ["TODO", "TODO"] }),
+      /should NOT have duplicate items/,
+    );
+  });
+
+  it("rejects unknown options", () => {
+    assert.throws(
+      () => verifyWithOptions({ pattern, typo: true }),
+      /should NOT have additional properties/,
+    );
   });
 });
