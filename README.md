@@ -20,22 +20,22 @@ $ npm install eslint-plugin-todo-plz --save-dev
 
 ## Usage
 
-Add `todo-plz` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Import `eslint-plugin-todo-plz` in your `eslint.config.js`, register it under
+`plugins`, and configure the rules you want to use:
 
-```json
-{
-  "plugins": ["todo-plz"]
-}
-```
+```js
+const todoPlz = require("eslint-plugin-todo-plz");
 
-Then configure the rules you want to use under the rules section.
-
-```json
-{
-  "rules": {
-    "todo-plz/ticket-ref": ["error", { "pattern": "PROJ-[0-9]+" }]
-  }
-}
+module.exports = [
+  {
+    plugins: {
+      "todo-plz": todoPlz,
+    },
+    rules: {
+      "todo-plz/ticket-ref": ["error", { pattern: "PROJ-[0-9]+" }],
+    },
+  },
+];
 ```
 
 ## Supported Rules
