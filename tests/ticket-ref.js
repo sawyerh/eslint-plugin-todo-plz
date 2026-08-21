@@ -53,6 +53,14 @@ ruleTester.run("ticket-ref", rule, {
       options: [options.jira],
     },
     {
+      code: "// NOTTODO is a documentation label",
+      options: [options.jira],
+    },
+    {
+      code: "// TODO_LIST stores documentation tasks",
+      options: [options.jira],
+    },
+    {
       code: `/**
               * Description
               * TODO (PROJ-123): Connect to the API
