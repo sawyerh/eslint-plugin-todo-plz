@@ -186,3 +186,10 @@ describe("ticket-ref source code compatibility", () => {
     });
   });
 });
+
+describe("ticket-ref metadata", () => {
+  it("does not advertise unsupported or placeholder capabilities", () => {
+    assert.strictEqual(Object.hasOwn(rule.meta.docs, "category"), false);
+    assert.strictEqual(Object.hasOwn(rule.meta, "fixable"), false);
+  });
+});
