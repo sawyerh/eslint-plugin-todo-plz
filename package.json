@@ -23,7 +23,7 @@
     "lib"
   ],
   "scripts": {
-    "lint": "cd tests/integration && eslint .",
+    "lint": "eslint --no-config-lookup lib tests/ticket-ref.js tests/integration-test.js",
     "test": "mocha tests"
   },
   "devDependencies": {
