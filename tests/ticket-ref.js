@@ -132,6 +132,18 @@ ruleTester.run("ticket-ref", rule, {
       options: [options.jira],
     },
     {
+      code: `/**
+              * TODO: Connect to the API
+              * TODO (PROJ-123): Document the API
+              */`,
+      errors: [
+        {
+          message: messages.missingTodoTicket,
+        },
+      ],
+      options: [options.jira],
+    },
+    {
       code: "// FIXME: Connect to the API",
       errors: [{ message: messages.missingFixmeTicket }],
       options: [{ pattern, terms: ["FIXME"] }],
