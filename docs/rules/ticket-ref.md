@@ -34,7 +34,8 @@ Examples of **correct** code for this rule when using the above options:
 
 ### `terms`
 
-_Optional._ Change what terms to require the ticket reference on. Defaults to: `["TODO"]`
+_Optional._ Change what terms to require the ticket reference on. Matching is
+case-insensitive. Defaults to: `["TODO"]`
 
 ```json
 {

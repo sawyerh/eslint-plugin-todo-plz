@@ -119,6 +119,15 @@ ruleTester.run("ticket-ref", rule, {
       options: [options.jira],
     },
     {
+      code: "// todo: Connect to the API",
+      errors: [
+        {
+          message: messages.missingTodoTicket,
+        },
+      ],
+      options: [options.jira],
+    },
+    {
       code: `/**
               * Description
               * TODO: Connect to the API
