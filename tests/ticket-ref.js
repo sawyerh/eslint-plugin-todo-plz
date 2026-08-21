@@ -5,6 +5,7 @@ const ruleTester = new RuleTester();
 
 const pattern = "PROJ-[0-9]+";
 const commentPattern = "TODO:\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]";
+const multiTermCommentPattern = "(?:TODO|FIXME):\\s\\[(PROJ-[0-9]+[,\\s]*)+\\]";
 const description = "Example: TODO: [http://jira.net/browse/TASK-0000]";
 
 const messages = {
@@ -145,6 +146,23 @@ ruleTester.run("ticket-ref", rule, {
       code: "// TODO (PROJ-123) Connect to the API",
       errors: [{ message: messages.missingTicketWithDescription }],
       options: [{ description }],
+    },
+    {
+      code: `/**
+              * TODO: [PROJ-123] Document the API
+              * FIXME: Connect to the API
+              */`,
+      errors: [
+        {
+          message: `FIXME comment doesn't reference a ticket number. Comment pattern: ${multiTermCommentPattern}`,
+        },
+      ],
+      options: [
+        {
+          commentPattern: multiTermCommentPattern,
+          terms: ["TODO", "FIXME"],
+        },
+      ],
     },
   ],
 });
