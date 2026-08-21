@@ -74,6 +74,10 @@ ruleTester.run("ticket-ref", rule, {
       options: [{ pattern, terms: ["FIXME"] }],
     },
     {
+      code: "// C++ (PROJ-2): Upgrade the toolchain",
+      options: [{ pattern, terms: ["C++"] }],
+    },
+    {
       code: "// TODO: [PROJ-2] Connect to the API",
       options: [{ commentPattern }],
     },
@@ -135,6 +139,15 @@ ruleTester.run("ticket-ref", rule, {
       code: "// FIXME: Connect to the API",
       errors: [{ message: messages.missingFixmeTicket }],
       options: [{ pattern, terms: ["FIXME"] }],
+    },
+    {
+      code: "// C++: Upgrade the toolchain",
+      errors: [
+        {
+          message: `C++ comment doesn't reference a ticket number. Ticket pattern: ${pattern}`,
+        },
+      ],
+      options: [{ pattern, terms: ["C++"] }],
     },
     {
       code: "// TODO (PROJ-123) Connect to the API",
