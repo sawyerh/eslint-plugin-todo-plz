@@ -235,6 +235,27 @@ describe("ticket-ref source code compatibility", () => {
   });
 });
 
+describe("ticket-ref ESLint directives", () => {
+  it("does not treat its rule ID in a disable directive as a TODO", () => {
+    const code = `// eslint-disable-next-line todo-plz/ticket-ref
+// TODO: Connect to the API`;
+    const messages = new Linter().verify(code, [
+      {
+        plugins: {
+          "todo-plz": {
+            rules: { "ticket-ref": rule },
+          },
+        },
+        rules: {
+          "todo-plz/ticket-ref": ["error", options.jira],
+        },
+      },
+    ]);
+
+    assert.deepStrictEqual(messages, []);
+  });
+});
+
 describe("ticket-ref option schema", () => {
   function verifyWithOptions(ruleOptions) {
     const linter = new Linter();
